@@ -1,0 +1,96 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{resume}[2025/10/19 compact single-page resume]
+
+% ---- Packages ----
+\RequirePackage[margin=.6in]{geometry}
+\RequirePackage[hidelinks]{hyperref}
+\RequirePackage{enumitem}
+\RequirePackage{titlesec}
+\RequirePackage{array}
+\RequirePackage{parskip}
+\RequirePackage{tabularx}
+\RequirePackage{fontawesome5}
+\RequirePackage{multicol}
+
+% ---- Typography (simple, portable) ----
+\renewcommand{\familydefault}{\sfdefault}
+
+% ---- Spacing knobs
+\newlength{\gapBetweenExperienceBlocks}
+\newlength{\gapAfterExperienceTitleTabular}
+\newlength{\gapAboveSectionTitle}
+\newlength{\gapBelowSectionTitle}
+\newlength{\gapBetweenBullets}
+\newlength{\skillslabelwidth}
+
+\setlength{\gapBetweenExperienceBlocks}{8pt plus 3pt minus 7pt}
+\setlength{\gapAfterExperienceTitleTabular}{2pt plus 1pt minus 1.7pt}
+\setlength{\gapAboveSectionTitle}{10pt plus 4pt minus 8.5pt}
+\setlength{\gapBelowSectionTitle}{6pt plus 2pt minus 4pt}
+\setlength{\gapBetweenBullets}{2pt plus 3pt minus 1.5pt}
+\setlength{\skillslabelwidth}{2.5cm} 
+
+\newcommand{\gapBetweenToolsBullets}{1.2}
+\flushbottom    
+
+% ---- Section titles ----
+\titleformat{\section}{\large\bfseries}{}{}{}[\titlerule]
+\titlespacing*{\section}{0pt}{\gapAboveSectionTitle}{\gapBelowSectionTitle}
+
+% ---- Lists 
+\setlist[itemize]{
+  left=1.25em,
+  itemsep=\gapBetweenBullets,
+  topsep=0pt,
+  parsep=0pt, partopsep=0pt
+}
+
+\newenvironment{closeitemize}{
+    \vspace{-\parskip}
+    \begin{itemize}
+}{
+    \end{itemize}
+}
+
+% ---- Make the header
+\newcommand{\headerline}[3][\faCaretRight]
+{
+  {\LARGE \bfseries #2}
+  \quad #1 \quad
+  {\LARGE #3}\par
+  \medskip
+}
+
+% ---- Contact block
+\newcommand{\contactcols}{3}
+\newcommand{\contactline}[2]{#1\hspace{0.5em}#2\par}
+
+\newenvironment{contactblock}[1][\contactcols]{
+    \begin{multicols}{#1}
+    \raggedright
+}{ 
+    \end{multicols}
+}
+
+% --- Tools/Skills type block
+\newenvironment{skillsblock}{
+    \renewcommand{\arraystretch}{\gapBetweenToolsBullets}
+    \begin{tabular}{p{\skillslabelwidth} p{15cm}}
+}{ 
+    \end{tabular}
+}
+
+\newcommand{\skill}[2]{\textbf{#1} & #2\\}
+
+% ---- Experience type block
+\newcommand{\experience}[4]{
+  \begin{tabular*}{\textwidth}{@{}l@{\extracolsep{\fill}}r@{}}
+    \textbf{#1}, #2 & #3 \\
+  \end{tabular*}
+  \par\vspace{-\parskip}
+  \addvspace{\gapAfterExperienceTitleTabular}
+  #4
+  \par\addvspace{\gapBetweenExperienceBlocks}
+}
+
+
