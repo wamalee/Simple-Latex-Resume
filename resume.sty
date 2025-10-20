@@ -75,9 +75,9 @@
 % --- Tools/Skills type block
 \newenvironment{skillsblock}{
     \renewcommand{\arraystretch}{\gapBetweenToolsBullets}
-    \begin{tabular}{p{\skillslabelwidth} p{15cm}}
+    \begin{tabular*}{\textwidth}{@{\extracolsep{\fill}}l l}
 }{ 
-    \end{tabular}
+    \end{tabular*}
 }
 
 \newcommand{\skill}[2]{\textbf{#1} & #2\\}
